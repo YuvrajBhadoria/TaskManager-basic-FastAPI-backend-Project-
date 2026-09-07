@@ -8,3 +8,6 @@ def login(existingUser: UserCreate):
     if loggedIn is None:
         return None
     return loggedIn
+
+def get_user_by_id(userID: int):
+    return user.get_user_by_id(userID)

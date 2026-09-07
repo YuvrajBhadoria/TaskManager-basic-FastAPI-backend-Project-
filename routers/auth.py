@@ -1,25 +1,31 @@
-from fastapi import Header, HTTPException, status
-from models.users import UserCreate,User
+from models.users import User
+from fastapi.security import OAuth2PasswordBearer
+from fastapi import Depends,HTTPException,status
 from services import userService
+import jwt
+import os
+from dotenv import load_dotenv
+load_dotenv()
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
-def get_current_user(username: str = Header(),password: str = Header()) -> User :
-    
-    credentials = UserCreate(
-        username=username,
-        password=password
-    )
+SECRET_KEY = os.getenv("SECRET_KEY")
 
-    user = userService.login(credentials)
-
-    if user is None:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid User"
-        )
-    
-    currentUser = User(
-        id=user["id"],
-        username=user["username"]
-    )
-    
-    return currentUser
+def get_current_user(
+    token: str = Depends(oauth2_scheme)
+) -> User:
+    try:
+        payload: dict = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
+        userID = int(payload.get("sub"))
+       
+        user = userService.get_user_by_id(userID)
+        if user is None:
+            raise HTTPException(
+                            status_code=status.HTTP_401_UNAUTHORIZED,
+                            detail="User Not Found"
+                        )
+        return user
+    except jwt.InvalidTokenError:
+         raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid authentication credentials"
+            )

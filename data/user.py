@@ -40,3 +40,22 @@ def login(user: UserCreate):
         }
 
     return None
+
+def get_user_by_id(userId: int):
+    with pool.connection() as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(
+                    """
+                    SELECT * FROM users WHERE id = %s
+                    """,
+                    (userId,)
+                )
+                row = cursor.fetchone()
+    
+    if row is None:
+        return None
+    
+    return User(
+        id=row[0],
+        username=row[1]
+    )
