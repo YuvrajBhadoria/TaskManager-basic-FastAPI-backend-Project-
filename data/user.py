@@ -6,6 +6,8 @@ def register(user:UserCreate):
     password_hash = PasswordHash.recommended()
     hashed_password = password_hash.hash(user.password)
 
+    if(user.username == "" or user.password == "" ):
+        return None
     
     with pool.connection() as conn:
             with conn.cursor() as cursor:
@@ -16,6 +18,11 @@ def register(user:UserCreate):
                        """,
                     (user.username,hashed_password)
                 )
+                row = cursor.fetchone()
+                
+    if row is None:
+        return None
+    return row
 
 def login(user: UserCreate):
     password_hash = PasswordHash.recommended()

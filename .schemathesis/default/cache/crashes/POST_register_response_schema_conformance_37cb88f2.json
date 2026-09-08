@@ -1,0 +1,82 @@
+{
+  "operation": "POST /register",
+  "method": "POST",
+  "path_template": "/register",
+  "fingerprint": "37cb88f2",
+  "case_id": "dH9O1G",
+  "code_sample": "curl -X POST -H 'Content-Type: application/json' -d '{\"username\": \"\", \"password\": \"\"}' http://localhost:8000/register",
+  "sequence": [
+    {
+      "method": "POST",
+      "url": "http://localhost:8000/register",
+      "url_template": "http://localhost:8000/register",
+      "headers": {
+        "User-Agent": "schemathesis/4.26.0",
+        "Accept-Encoding": "gzip, deflate, zstd",
+        "Accept": "*/*",
+        "Connection": "keep-alive",
+        "X-Schemathesis-TestCaseId": "dH9O1G",
+        "Content-Type": "application/json",
+        "Content-Length": "32"
+      },
+      "response": {
+        "status_code": 422,
+        "headers": {
+          "date": "Tue, 08 Sep 2026 04:58:43 GMT",
+          "server": "uvicorn",
+          "content-length": "27",
+          "content-type": "application/json"
+        },
+        "body": "{\"detail\":\"User Not Found\"}"
+      },
+      "link": null,
+      "checks": [
+        {
+          "name": "response_schema_conformance",
+          "status": "failure",
+          "message": "Response violates schema\n\n\"User Not Found\" is not of type \"array\"\n\nValidated against the response schema for status code 422.\n\nSchema at /components/schemas/HTTPValidationError/properties/detail:\n\n    {\n        \"type\": \"array\",\n        \"items\": {\n            \"$ref\": \"#/components/schemas/ValidationError\"\n        },\n        \"title\": \"Detail\"\n    }\n\nValue:\n\n    \"User Not Found\""
+        }
+      ],
+      "meta": {
+        "generation": {
+          "time": 0.00022229999012779444,
+          "mode": "positive"
+        },
+        "components": {
+          "BODY": "positive"
+        },
+        "phase": {
+          "name": "coverage",
+          "data": {
+            "type": "CoveragePhaseData",
+            "description": "Valid object",
+            "location": null,
+            "parameter": "application/json",
+            "parameter_location": "BODY",
+            "scenario": "valid_object"
+          }
+        },
+        "pool_draws": [],
+        "pool_misses": [],
+        "semantic_draws": [],
+        "dictionary_draws": [],
+        "constants_draws": [],
+        "raw_containers": {}
+      },
+      "path": "/register",
+      "path_parameters": {},
+      "query": {},
+      "case_headers": {},
+      "cookies": {},
+      "case_body": {
+        "encoding": "json",
+        "value": {
+          "username": "",
+          "password": "[Filtered]"
+        }
+      },
+      "media_type": "application/json",
+      "parent_index": null
+    }
+  ]
+}

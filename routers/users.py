@@ -12,7 +12,14 @@ router = APIRouter()
 
 @router.post("/register")
 def register(user:UserCreate):
-    userService.register(user)
+    registered = userService.register(user)
+    if registered is None:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail="User Not Found"
+        )
+    
+    return registered
     
 @router.post("/login")
 def login(user: OAuth2PasswordRequestForm = Depends()):
@@ -25,7 +32,7 @@ def login(user: OAuth2PasswordRequestForm = Depends()):
     
     if loggedIn is None:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
             detail="User Not Found"
         )
  

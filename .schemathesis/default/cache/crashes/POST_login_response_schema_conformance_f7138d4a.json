@@ -1,0 +1,86 @@
+{
+  "operation": "POST /login",
+  "method": "POST",
+  "path_template": "/login",
+  "fingerprint": "f7138d4a",
+  "case_id": "PCgm2A",
+  "code_sample": "curl -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d 'grant_type=&username=0&password=0&scope=&client_secret=' http://localhost:8000/login",
+  "sequence": [
+    {
+      "method": "POST",
+      "url": "http://localhost:8000/login",
+      "url_template": "http://localhost:8000/login",
+      "headers": {
+        "User-Agent": "schemathesis/4.26.0",
+        "Accept-Encoding": "gzip, deflate, zstd",
+        "Accept": "*/*",
+        "Connection": "keep-alive",
+        "X-Schemathesis-TestCaseId": "PCgm2A",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": "55"
+      },
+      "response": {
+        "status_code": 422,
+        "headers": {
+          "date": "Tue, 08 Sep 2026 04:58:43 GMT",
+          "server": "uvicorn",
+          "content-length": "27",
+          "content-type": "application/json"
+        },
+        "body": "{\"detail\":\"User Not Found\"}"
+      },
+      "link": null,
+      "checks": [
+        {
+          "name": "response_schema_conformance",
+          "status": "failure",
+          "message": "Response violates schema\n\n\"User Not Found\" is not of type \"array\"\n\nValidated against the response schema for status code 422.\n\nSchema at /components/schemas/HTTPValidationError/properties/detail:\n\n    {\n        \"type\": \"array\",\n        \"items\": {\n            \"$ref\": \"#/components/schemas/ValidationError\"\n        },\n        \"title\": \"Detail\"\n    }\n\nValue:\n\n    \"User Not Found\""
+        }
+      ],
+      "meta": {
+        "generation": {
+          "time": 0.016962099994998425,
+          "mode": "negative"
+        },
+        "components": {
+          "BODY": "negative"
+        },
+        "phase": {
+          "name": "coverage",
+          "data": {
+            "type": "CoveragePhaseData",
+            "description": "grant_type: Value not matching the '^password$' pattern",
+            "location": "/properties/grant_type/anyOf/0/pattern",
+            "parameter": "application/x-www-form-urlencoded",
+            "parameter_location": "BODY",
+            "scenario": "invalid_pattern"
+          }
+        },
+        "pool_draws": [],
+        "pool_misses": [],
+        "semantic_draws": [],
+        "dictionary_draws": [],
+        "constants_draws": [],
+        "raw_containers": {}
+      },
+      "path": "/login",
+      "path_parameters": {},
+      "query": {},
+      "case_headers": {},
+      "cookies": {},
+      "case_body": {
+        "encoding": "json",
+        "value": {
+          "grant_type": "",
+          "username": "0",
+          "password": "[Filtered]",
+          "scope": "",
+          "client_id": null,
+          "client_secret": "[Filtered]"
+        }
+      },
+      "media_type": "application/x-www-form-urlencoded",
+      "parent_index": null
+    }
+  ]
+}

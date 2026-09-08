@@ -1,0 +1,82 @@
+{
+  "operation": "POST /register",
+  "method": "POST",
+  "path_template": "/register",
+  "fingerprint": "82e10e43",
+  "case_id": "XTa8B9",
+  "code_sample": "curl -X POST -H 'Content-Type: application/json' -d '{\"password\": \"\", \"username\": \"\"}' http://localhost:8000/register",
+  "sequence": [
+    {
+      "method": "POST",
+      "url": "http://localhost:8000/register",
+      "url_template": "http://localhost:8000/register",
+      "headers": {
+        "User-Agent": "schemathesis/4.26.0",
+        "Accept-Encoding": "gzip, deflate, zstd",
+        "Accept": "*/*",
+        "Connection": "keep-alive",
+        "X-Schemathesis-TestCaseId": "XTa8B9",
+        "Content-Type": "application/json",
+        "Content-Length": "32"
+      },
+      "response": {
+        "status_code": 500,
+        "headers": {
+          "date": "Tue, 08 Sep 2026 04:47:51 GMT",
+          "server": "uvicorn",
+          "content-length": "21",
+          "content-type": "text/plain; charset=utf-8"
+        },
+        "body": "Internal Server Error"
+      },
+      "link": null,
+      "checks": [
+        {
+          "name": "status_code_conformance",
+          "status": "failure",
+          "message": "Undocumented HTTP status code\n\nReceived: 500\nDocumented: 200, 422"
+        }
+      ],
+      "meta": {
+        "generation": {
+          "time": 0.004867499999818392,
+          "mode": "positive"
+        },
+        "components": {
+          "BODY": "positive"
+        },
+        "phase": {
+          "name": "fuzzing",
+          "data": {
+            "type": "FuzzingPhaseData",
+            "description": "Positive test case",
+            "location": null,
+            "parameter": null,
+            "parameter_location": null,
+            "mutations": []
+          }
+        },
+        "pool_draws": [],
+        "pool_misses": [],
+        "semantic_draws": [],
+        "dictionary_draws": [],
+        "constants_draws": [],
+        "raw_containers": {}
+      },
+      "path": "/register",
+      "path_parameters": {},
+      "query": {},
+      "case_headers": {},
+      "cookies": {},
+      "case_body": {
+        "encoding": "json",
+        "value": {
+          "password": "[Filtered]",
+          "username": ""
+        }
+      },
+      "media_type": "application/json",
+      "parent_index": null
+    }
+  ]
+}
